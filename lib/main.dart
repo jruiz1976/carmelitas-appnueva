@@ -98,14 +98,14 @@ class _HomeContableState extends State<HomeContable> {
 
   String _fmt(double val, String cta) {
     final f = NumberFormat("#,##0.00", "es_VE");
-    return cta.contains("\$") ? "\$ ${f.format(val)}" : "Bs. ${f.format(val)}";
+    return cta.contains(r'$') ? r'$ ' + f.format(val) : 'Bs. ' + f.format(val);
   }
 
   double _saldoCuenta(String cta) {
     double total = 0;
     for (var m in _movs) {
       if (m['cuenta'] == cta) {
-        total += m['tipo'] == 'Ingreso' ? m['monto'] : -m['monto'];
+        total += m['tipo'] == 'Ingreso' ? (m['monto'] as num).toDouble() : -(m['monto'] as num).toDouble();
       }
     }
     return total;
