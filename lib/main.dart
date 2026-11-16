@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   runApp(const CarmelitasApp());
@@ -105,7 +105,9 @@ class _HomeContableState extends State<HomeContable> {
     double total = 0;
     for (var m in _movs) {
       if (m['cuenta'] == cta) {
-        total += m['tipo'] == 'Ingreso' ? (m['monto'] as num).toDouble() : -(m['monto'] as num).toDouble();
+        total += m['tipo'] == 'Ingreso'
+            ? (m['monto'] as num).toDouble()
+            : -(m['monto'] as num).toDouble();
       }
     }
     return total;
@@ -218,12 +220,13 @@ class _HomeContableState extends State<HomeContable> {
                   "📂 Categoría: ${m['categoria']}\n"
                   "📝 Concepto: ${m['desc']}\n"
                   "✍️ Ecónoma: $_economa";
-             Clipboard.setData(ClipboardData(text: texto));
-             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("¡Recibo copiado! Pégalo en WhatsApp")));
-
+              Clipboard.setData(ClipboardData(text: texto));
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("¡Recibo copiado! Pégalo en WhatsApp")),
+              );
             },
-            icon: const Icon(Icons.share, color: Colors.green),
-            label: const Text("Compartir", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+            icon: const Icon(Icons.copy, color: Colors.green),
+            label: const Text("Copiar WhatsApp", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(ctx),
@@ -283,8 +286,3 @@ class _HomeContableState extends State<HomeContable> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(_comunidad.toUpperCase(), style: const TextStyle(fontSize: 12, color: Color(0xFFEFEBE9))),
-            const Text("Sistema Contable Carmelitas", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          ],
-        ),
-        actions: [
