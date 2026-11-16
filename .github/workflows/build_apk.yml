@@ -15,7 +15,7 @@ jobs:
           flutter-version: '3.24.0'
           channel: 'stable'
       - name: Preparar plataforma Android
-        run: flutter create --platforms=android .
+        run: flutter create --project-name carmelitas_appnueva --platforms=android .
       - name: Instalar dependencias
         run: flutter pub get
       - name: Compilar APK Release
