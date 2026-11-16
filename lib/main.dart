@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const CarmelitasApp());
@@ -218,7 +218,9 @@ class _HomeContableState extends State<HomeContable> {
                   "📂 Categoría: ${m['categoria']}\n"
                   "📝 Concepto: ${m['desc']}\n"
                   "✍️ Ecónoma: $_economa";
-              Share.share(texto);
+             Clipboard.setData(ClipboardData(text: texto));
+             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("¡Recibo copiado! Pégalo en WhatsApp")));
+
             },
             icon: const Icon(Icons.share, color: Colors.green),
             label: const Text("Compartir", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
